@@ -1,0 +1,1 @@
+ALTER TABLE "expenses" ADD COLUMN "amount" integer DEFAULT 0;
