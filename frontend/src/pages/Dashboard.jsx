@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
 import { Plus, Edit2, Trash, X, Check } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 
 export const Dashboard = () => {
+  const navigate = useNavigate()
   const [budgets, setBudgets] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
@@ -74,7 +76,7 @@ export const Dashboard = () => {
 
   const startEdit = (budget) => {
     setEditingId(budget.id)
-    setEditData({ name: budget.name, amount: String(budget.amount) })
+    setEditData({ name: budget.name, amount: String(budget.totalAmount ?? budget.amount) })
   }
 
   const cancelEdit = () => {
@@ -158,17 +160,17 @@ export const Dashboard = () => {
               <p className="text-zinc-400">No budgets yet.</p>
             ) : (
               budgets.map((b) => (
-                <div key={b.id} className="relative flex h-40 flex-col justify-between rounded-[1.25rem] border border-white/10 bg-[#0b0b0d]/80 p-4">
+                <div key={b.id} className="relative flex h-40 flex-col justify-between rounded-[1.25rem] border border-white/10 bg-[#0b0b0d]/80 p-4 cursor-pointer transition hover:bg-[#0b0b0d]/95 hover:border-white/20" onClick={() => navigate(`/budgets/${b.id}`)}>
                   <div>
                     <p className="text-sm font-medium text-zinc-300/90">{b.name}</p>
                   </div>
 
                   <div>
-                    <p className="text-2xl font-semibold text-white">${b.amount}</p>
-                    <p className="mt-1 text-xs text-zinc-400">Amount left</p>
+                    <p className="text-2xl font-semibold text-white">${b.amount} / ${b.totalAmount}</p>
+                    <p className="mt-1 text-xs text-zinc-400">Remaining / Total</p>
                   </div>
 
-                  <div className="absolute right-3 top-3 flex gap-2">
+                  <div className="absolute right-3 top-3 flex gap-2" onClick={(e) => e.stopPropagation()}>
                     <button onClick={() => startEdit(b)} className="inline-flex cursor-pointer items-center gap-2 rounded-2xl bg-white/5 px-2 py-1 text-sm">
                       <Edit2 size={14} />
                     </button>
@@ -177,7 +179,7 @@ export const Dashboard = () => {
                     </button>
                   </div>
                   {editingId === b.id && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center">
+                    <div className="fixed inset-0 z-50 flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
                       <div className="mx-4 flex items-center gap-2 rounded-[1rem] bg-[#0b0b0d]/95 p-4 shadow-lg border border-white/10">
                         <input name="name" value={editData.name} onChange={handleEditChange} className="rounded-xl bg-white/5 px-3 py-2 text-white outline-none" />
                         <input name="amount" value={editData.amount} onChange={handleEditChange} className="w-20 rounded-xl bg-white/5 px-3 py-2 text-white outline-none" />

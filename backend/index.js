@@ -170,15 +170,18 @@ app.post("/budgets", authMiddleware, async (req,res)=>{
             });
         }
 
+        const totalAmount = parseInt(amount);
         const insertedBudgets = await db
             .insert(budgets)
             .values({
-                amount: parseInt(amount),
+                totalAmount,
+                amount: totalAmount,
                 name: String(name).trim(),
                 userId,
             })
             .returning({
                 id: budgets.id,
+                totalAmount: budgets.totalAmount,
                 amount: budgets.amount,
                 name: budgets.name,
                 userId: budgets.userId,
@@ -206,6 +209,7 @@ app.get("/budgets", authMiddleware, async (req,res)=>{
         const userBudgets = await db
             .select({
                 id: budgets.id,
+                totalAmount: budgets.totalAmount,
                 amount: budgets.amount,
                 name: budgets.name,
                 userId: budgets.userId,
@@ -243,7 +247,7 @@ app.patch("/budgets/:id", authMiddleware, async (req,res)=>{
         }
 
         const budgetToUpdate = await db
-            .select({ id: budgets.id, userId: budgets.userId })
+            .select({ id: budgets.id, userId: budgets.userId, totalAmount: budgets.totalAmount, currentAmount: budgets.amount })
             .from(budgets)
             .where(and(eq(budgets.id, parseInt(id)), eq(budgets.userId, userId)))
             .limit(1);
@@ -257,7 +261,18 @@ app.patch("/budgets/:id", authMiddleware, async (req,res)=>{
         }
 
         const updateData = {};
-        if (amount) updateData.amount = parseInt(amount);
+        if (amount) {
+            const newTotalAmount = parseInt(amount);
+            const oldTotalAmount = budgetToUpdate[0].totalAmount;
+            const currentAmount = budgetToUpdate[0].currentAmount;
+            
+            // Calculate the new remaining amount based on difference in total amounts
+            const difference = newTotalAmount - oldTotalAmount;
+            const newRemainingAmount = currentAmount + difference;
+            
+            updateData.totalAmount = newTotalAmount;
+            updateData.amount = newRemainingAmount;
+        }
         if (name) updateData.name = String(name).trim();
 
         const updatedBudgets = await db
@@ -266,6 +281,7 @@ app.patch("/budgets/:id", authMiddleware, async (req,res)=>{
             .where(eq(budgets.id, parseInt(id)))
             .returning({
                 id: budgets.id,
+                totalAmount: budgets.totalAmount,
                 amount: budgets.amount,
                 name: budgets.name,
                 userId: budgets.userId,

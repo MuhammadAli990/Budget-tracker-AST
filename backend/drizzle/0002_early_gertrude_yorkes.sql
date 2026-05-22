@@ -1,0 +1,1 @@
+ALTER TABLE "budgets" ADD COLUMN "total_amount" integer NOT NULL DEFAULT 0;

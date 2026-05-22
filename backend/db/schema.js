@@ -10,6 +10,7 @@ export const users = pgTable("users", {
 
 export const budgets = pgTable("budgets", {
 	id: serial("id").primaryKey(),
+	totalAmount: integer("total_amount").notNull().default(0),
 	amount: integer("amount").notNull(),
 	name: text("name").notNull(),
 	userId: integer("user_id").notNull().references(() => users.id),
