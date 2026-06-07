@@ -126,10 +126,10 @@ export const Dashboard = () => {
       <section className="relative mx-auto w-full max-w-4xl px-4 py-8 sm:px-6">
         <div className="absolute -right-16 top-6 h-44 w-44 rounded-full bg-purple-500/20 blur-3xl pointer-events-none" />
 
-        <div className="mb-6 flex items-center justify-between">
+        <div className="mb-12 flex items-center justify-between">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-purple-300">Welcome back</p>
-            <h1 className="mt-2 text-3xl font-semibold text-white">Alex — here's your budget summary</h1>
+            <h1 className="mt-2 text-3xl font-semibold text-white">Ali — here's your budget summary</h1>
             <p className="mt-2 text-sm text-zinc-400">Static welcome message for now.</p>
           </div>
           <div className="flex items-center gap-3">
@@ -166,7 +166,7 @@ export const Dashboard = () => {
                   </div>
 
                   <div>
-                    <p className="text-2xl font-semibold text-white">${b.amount} / ${b.totalAmount}</p>
+                    <p className="text-2xl font-semibold text-white"><span className="text-lg text-slate-100 font-medium">${b.amount}</span> / ${b.totalAmount}</p>
                     <p className="mt-1 text-xs text-zinc-400">Remaining / Total</p>
                   </div>
 
