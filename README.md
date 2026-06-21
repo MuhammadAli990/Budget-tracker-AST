@@ -116,4 +116,3 @@ pnpm run test:grid
 *   `frontend/selenium-tests/`: Industrial-grade QA automation suite.
 
 ---
-*Created for Advanced Software Testing (AST) Project*
