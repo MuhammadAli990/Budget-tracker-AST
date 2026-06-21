@@ -1,0 +1,5 @@
+node_modules/
+selenium-server.jar
+*.log
+.env
+.DS_Store
