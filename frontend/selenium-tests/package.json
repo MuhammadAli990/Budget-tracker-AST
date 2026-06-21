@@ -1,0 +1,29 @@
+{
+  "name": "selenium-tests",
+  "version": "1.0.0",
+  "description": "UI Automation Testing for BudgetTracker-AST using Selenium WebDriver",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "mocha tests/**/*.test.js --timeout 30000",
+    "test:grid": "node scripts/run-grid-parallel.js"
+  },
+  "keywords": [
+    "selenium",
+    "webdriver",
+    "testing",
+    "ui",
+    "automation"
+  ],
+  "config": {
+    "detect_chromedriver_version": "true"
+  },
+  "author": "Antigravity",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^5.1.1",
+    "mocha": "^10.4.0",
+    "mocha-parallel-tests": "^2.3.0",
+    "selenium-webdriver": "^4.21.0"
+  }
+}
