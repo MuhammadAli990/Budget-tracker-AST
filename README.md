@@ -85,6 +85,9 @@ pnpm test
 
 ### UI Automation (Selenium)
 Comprehensive end-to-end tests for registration, login, and dashboard workflows.
+
+**Note:** For running Grid-based tests (`test:grid`), ensure `selenium-server.jar` is present in the `frontend/selenium-tests` folder and Java is installed.
+
 ```bash
 cd frontend/selenium-tests
 
