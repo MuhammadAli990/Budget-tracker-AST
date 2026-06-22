@@ -1,6 +1,6 @@
 # Budget Tracker AST 📊
 
-A sophisticated MERN-stack application (PostgreSQL, Express, React, Node.js) designed for seamless budget management, expense tracking, and financial transaction recording. This project features a robust containerized database setup and a comprehensive Selenium-based UI automation testing suite.
+A sophisticated PERN-stack application (PostgreSQL, Express, React, Node.js) designed for seamless budget management, expense tracking, and financial transaction recording. This project features a robust containerized database setup and a comprehensive Selenium-based UI automation testing suite.
 
 ## 🚀 Quick Start Guide
 
